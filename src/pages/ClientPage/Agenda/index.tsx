@@ -1,8 +1,9 @@
 import { FaTrash, FaEdit, FaPlus, FaFilePdf } from 'react-icons/fa';
 import { ActionsTd, BoxBtn, Button, Container, Table, Td, Th } from './styled';
 import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { ContactContext } from '../../../providers/ContactContext';
+import { api } from '../../../services/api';
 
 export const Agenda = () => {
   const { contacts, setContacts } = useContext(ContactContext);
@@ -11,6 +12,10 @@ export const Agenda = () => {
   const handleDelete = (id: string) => {
     const updatedContacts = contacts.filter((contact) => contact.id !== id);
     setContacts(updatedContacts);
+  };
+
+  const requestPDF = () => {
+    return api.get('/generate-pdf');
   };
 
   const logOut = () => {
@@ -25,7 +30,7 @@ export const Agenda = () => {
           <FaPlus />
           Adicionar Novo Contato
         </Button>
-        <Button>
+        <Button onClick={requestPDF}>
           <FaFilePdf />
           Gerar PDF
         </Button>

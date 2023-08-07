@@ -32,7 +32,6 @@ export const ContactProvider = ({ children }: tContactProps) => {
         setLoading(true);
         const response = await api.get<tContact[]>('/contacts');
         setContacts([...response.data]);
-        console.log(contacts);
       } catch (error) {
         console.error(error);
       } finally {
