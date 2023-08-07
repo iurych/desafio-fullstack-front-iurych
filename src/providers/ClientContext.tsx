@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 import { tRegisterClientData } from '../pages/RegisterPage/RegisterForm/validator';
 import { api } from '../services/api';
 import { toast } from 'react-toastify';
@@ -28,20 +28,6 @@ export const ClientProvider = ({ children }: tClientProps) => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem('@TOKEN');
-
-    if (token) {
-      if (!token) {
-        setLoading(true);
-        return;
-      }
-
-      api.defaults.headers.common.Authorization = `Bearer ${token}`;
-      setLoading(false);
-    }
-  }, []);
 
   const clientRegister = async (data: tRegisterClientData) => {
     try {

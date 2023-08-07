@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
 import { api } from '../services/api';
+import { AxiosResponse } from 'axios';
 
 type tContactProps = {
   children: React.ReactNode;
@@ -16,6 +17,7 @@ export type tContact = {
 export type tContactContext = {
   contacts: tContact[];
   setContacts: React.Dispatch<React.SetStateAction<tContact[]>>;
+  handlePDF: () => Promise<AxiosResponse<tContact[]>>;
 };
 
 export const ContactContext = createContext<tContactContext>(
@@ -24,13 +26,27 @@ export const ContactContext = createContext<tContactContext>(
 
 export const ContactProvider = ({ children }: tContactProps) => {
   const [contacts, setContacts] = useState<tContact[]>([]);
-  const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setLoading] = useState(false);
+  const token = localStorage.getItem('@TOKEN');
+
+  const handlePDF = () => {
+    return api.get('/generate-pdf', {
+      headers: {
+        Authorization: `Beare ${token}`,
+      },
+    });
+  };
 
   useEffect(() => {
     (async () => {
       try {
         setLoading(true);
-        const response = await api.get<tContact[]>('/contacts');
+        const response = await api.get<tContact[]>('/contacts', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setContacts([...response.data]);
       } catch (error) {
         console.error(error);
@@ -46,6 +62,7 @@ export const ContactProvider = ({ children }: tContactProps) => {
       value={{
         contacts,
         setContacts,
+        handlePDF,
       }}
     >
       {' '}
