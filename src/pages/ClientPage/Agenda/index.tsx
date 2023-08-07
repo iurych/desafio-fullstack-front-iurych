@@ -3,9 +3,10 @@ import { ActionsTd, BoxBtn, Button, Container, Table, Td, Th } from './styled';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { ContactContext } from '../../../providers/ContactContext';
+import { ContactsPDF } from '../../../reports/Contacts/contacts';
 
 export const Agenda = () => {
-  const { contacts, setContacts, handlePDF } = useContext(ContactContext);
+  const { contacts, setContacts } = useContext(ContactContext);
   const navigate = useNavigate();
 
   const handleDelete = (id: string) => {
@@ -25,7 +26,7 @@ export const Agenda = () => {
           <FaPlus />
           Adicionar Novo Contato
         </Button>
-        <Button onClick={handlePDF}>
+        <Button onClick={(e) => ContactsPDF(contacts)} >
           <FaFilePdf />
           Gerar PDF
         </Button>
