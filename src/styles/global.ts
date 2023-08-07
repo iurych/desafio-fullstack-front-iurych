@@ -10,4 +10,8 @@ export const GloblaStyles = createGlobalStyle`
         list-style: none;
         text-decoration: none;
     }
+
+    button {
+        cursor: pointer;
+    }
 `;

@@ -1,13 +1,21 @@
-import { Link } from 'react-router-dom';
 import { ContainerLogin } from './styles';
+import { LoginForm } from './LoginForm';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginPage = () => {
+  const token = localStorage.getItem('@TOKEN');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (token) {
+      navigate('/ClientPage');
+    }
+  }, [token, navigate]);
+
   return (
     <ContainerLogin>
-      <h1>Pagina de login</h1>
-      <Link to='/register' className='link-to-register'>
-        Sign Up
-      </Link>
+      <LoginForm />
     </ContainerLogin>
   );
 };
