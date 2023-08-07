@@ -12,6 +12,7 @@ export const LoginPage = () => {
       navigate('/ClientPage');
     }
   }, [token, navigate]);
+  
 
   return (
     <ContainerLogin>

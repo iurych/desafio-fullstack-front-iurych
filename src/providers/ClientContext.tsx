@@ -27,7 +27,6 @@ export const ClientContext = createContext<tClientContext>(
 export const ClientProvider = ({ children }: tClientProps) => {
   const [loading, setLoading] = useState(false);
 
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -72,11 +71,6 @@ export const ClientProvider = ({ children }: tClientProps) => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const logOut = () => {
-    navigate('/');
-    localStorage.clear();
   };
 
   return (

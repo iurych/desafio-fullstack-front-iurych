@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Agenda } from './Agenda';
 
 export const ClientPage = () => {
   const token = localStorage.getItem('@TOKEN');
@@ -13,7 +14,7 @@ export const ClientPage = () => {
 
   return (
     <div>
-      <h1>Pagina do cliente</h1>
+      <Agenda />
     </div>
   );
 };
